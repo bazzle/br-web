@@ -1,14 +1,13 @@
 <template>
   <div>
-    <HomeHero :heroData="hero" :links="links" />
     <BlogFeed :postFeed="posts" />
-    <AboutMe :links="links" />
+    <AboutBlog :aboutData="about" />
   </div>
 </template>
 
 <script>
   import {createClient} from '~/plugins/contentful.js'
-  import AboutMe from '~/components/AboutMe'
+  import AboutBlog from '~/components/AboutBlog'
   import HomeHero from '~/components/HomeHero'
   import BlogFeed from '~/components/BlogFeed'
 
@@ -61,7 +60,7 @@
     },
     components: {
       HomeHero,
-      AboutMe,
+      AboutBlog,
       BlogFeed
     }
   }

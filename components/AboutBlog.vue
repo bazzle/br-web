@@ -3,18 +3,23 @@
 	<div class="cp about">
     <div class="panel__inner about__inner">
       <div class="row">
+        <h2 class="sr-only">{{ aboutData.fields.title }}</h2>
 				<div class="about__maintext">
+						<h3 class="about__title">
+							Here you will find
+						</h3>
 						<p>
-							{{ this.title }}
+							{{ aboutData.fields.mainContent }}
 						</p>
 				</div>
 				<div class="about__profile">
+					<h3 class="about__title">
+						A little about me
+					</h3>
 						<div class="about__profile__content">
-							<div class="about__links">
-								<a v-for="link in links" :href="link.href" target="_blank" :key="link.id">
-									{{link.linkText}}
-								</a>
-							</div>
+							<p>
+								{{ aboutData.fields.mainContent2 }}
+							</p>
 						</div>
 				</div>
       </div>
@@ -23,14 +28,13 @@
 </section>
 </template>
 <script>
+  import MarkdownText from '~/components/MarkdownText'
   export default {
-		name: 'aboutMe',
-		data(){
-			return{
-				title: 'Feel free to get in touch'
-			}
-		},
-		props: ['links']
+    name: 'aboutMe',
+    props: ['aboutData'],
+    components: {
+      MarkdownText
+    }
   }
 </script>
 
@@ -66,23 +70,25 @@
 			}
 		}
 	}
-	&__links{
-				width:100%;
-				padding-bottom:$text-padding-std;
-				text-align:center;
-				display:flex;
-				justify-content: center;
-				align-items:center;
-				flex-direction:row;
-				font-size:2.3rem;
-				font-weight:$std;
-				a{
-					@include text-underline($color-brand);
-					padding:.2em;
-				}
-				@include bp($bp2){
-					font-size:2.3rem;
+	&__profile{
+		@include bp($bp2){
+			padding-left:$grid-space;
+			padding-right:$grid-space;
+			width:40%;
+		}
+		&__content{
+			@include text-body;
+			padding-bottom:$text-padding-std;
+			@include bp($bp2){
+				padding-right:$grid-space;
+				p{
+					font-size:$font-size-small;
+					&:first-of-type {
+						margin-top: 0;
+					}
 				}
 			}
+		}
 	}
+}
 </style>
