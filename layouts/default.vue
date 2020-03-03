@@ -4,7 +4,9 @@
     <main role="main">
       <nuxt/>
     </main>
-    <BackTop />
+    <no-ssr>
+      <BackTop v-if="this.scrolledTop === true" />
+    </no-ssr>
   </div>
 </template>
 <script>
@@ -14,6 +16,7 @@ export default {
   data(){
     return{
       darkMode: true,
+      scrolledTop: false,
       links: [
         {
           id: "email",
@@ -39,7 +42,22 @@ export default {
   methods: {
     darkModeUpdate: function(){
       this.darkMode === true ? this.darkMode = false : this.darkMode = true
+    },
+    checkTop(){
+      const contentstart = document.querySelector('body');
+      const contentoffset = contentstart.getBoundingClientRect().top + pageYOffset;
+      if ( pageYOffset === 0 ){
+        this.scrolledTop = false
+      } else {
+        this.scrolledTop = true
+      }
     }
+  },
+  mounted() {
+    document.addEventListener('scroll', this.checkTop);
+  },
+  destroyed() {
+    document.removeEventListener('scroll', this.checkTop);
   },
   components: {
     BlogHeader,
